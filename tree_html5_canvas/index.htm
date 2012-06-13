@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+     
+<html>
+	<head>
+		<title>Canvas</title>
+		<meta charset="utf-8">
+
+		<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="matrix.js"></script>
+		<script type="text/javascript" src="vector.js"></script>
+		<script type="text/javascript" src="view.js"></script>
+		<script type="text/javascript" src="logic.js"></script>
+		<script type="text/javascript" src="controller.js"></script>
+
+		<script type="text/javascript">
+		
+		$(document).ready(function() {
+			engine = new controller("area");
+			engine.execute();
+
+		});
+		
+		</script>
+	</head>
+
+	<body>
+		<canvas id="area" width="500" height="500">
+			<!-- Insert fallback content here -->
+			Sorry, your browser is not supporting Canvas of HTML5.
+		</canvas>
+	</body>
+</html>
