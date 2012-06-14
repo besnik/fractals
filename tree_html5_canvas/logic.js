@@ -8,6 +8,9 @@
 function logic() {
 	
 	this.execute = function(context) {
+		// clear canvas
+		context.services.v.clear();
+	
 		// start point
 		var startPoint = context.config.startPoint;
 		// start move vector (normalized vector * length)
@@ -39,11 +42,11 @@ function logic() {
 		var newDepth = depth + 1;
 		
 		// right
-		var rightDirection = direction.rotate(matrix.right);
+		var rightDirection = direction.rotate(matrix.right).multiply(context.config.branchShortage);
 		this.iterate(context, endPoint, rightDirection, newDepth);
 		
 		// left
-		var leftDirection = direction.rotate(matrix.left);
+		var leftDirection = direction.rotate(matrix.left).multiply(context.config.branchShortage);
 		this.iterate(context, endPoint, leftDirection, newDepth);
 	};
 };

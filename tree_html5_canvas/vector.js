@@ -28,7 +28,7 @@ function vector(x,y) {
 	// rotates vector by given transformation matrix
 	this.rotateByMatrix = function (matrix) {
 		var nx = (this.x * matrix.p11) + (this.y * matrix.p12);
-		var ny = (this.y * matrix.p21) + (this.y * matrix.p22);
+		var ny = (this.x * matrix.p21) + (this.y * matrix.p22);
 		return new vector(nx,ny);
 	};
 	

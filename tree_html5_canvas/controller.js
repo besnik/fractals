@@ -4,8 +4,9 @@
  ******************************************************************/
 function controller(canvasId) {
 	this.config = {
-		maxDepth: 2,
+		maxDepth: 10,
 		branchLength: 100,
+		branchShortage: 0.7,
 		angle: 30,
 		startPoint: new vector(250, 450),
 		startDirection: new vector(0,-1) // length = 1
