@@ -10,7 +10,7 @@ Currently all code is done using javascript with help of jQuery library. Renderi
 
 Programs are implemented using object oriented designs and a variation of MVC pattern to decouple model from view layer.
 
-![Multiple tree fractals](wiki/images/tree-fractal.png?raw=true)
+![Multiple tree fractals](fractals/wiki/images/tree-fractal.png?raw=true)
 
 Learning Source
 ===============
