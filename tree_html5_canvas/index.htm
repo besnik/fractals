@@ -16,7 +16,48 @@
 		
 		$(document).ready(function() {
 			engine = new controller("area");
-			engine.execute();
+			
+			// input configuration of fractals
+			fractals = {};
+			
+			fractals.items = [
+			{
+				maxDepth: 10,
+				branchLength: 60,
+				branchShortage: 0.7,
+				angle: 30,
+				color: "#0B0",
+				startPoint: new vector(120, 450),
+				startDirection: new vector(0,-1) // length = 1
+			},
+			{
+				maxDepth: 10,
+				branchLength: 120,
+				branchShortage: 0.7,
+				angle: 15,
+				color: "#0D0",
+				startPoint: new vector(280, 450),
+				startDirection: new vector(0,-1) // length = 1
+			},
+			{
+				maxDepth: 10,
+				branchLength: 40,
+				branchShortage: 0.7,
+				angle: 55,
+				color: "#080",
+				startPoint: new vector(400, 450),
+				startDirection: new vector(0,-1) // length = 1
+			}
+			];
+			
+			fractals.gradient = {
+				stops: [
+					{ offset: 0.8, color: "#fff" },
+					{ offset: 1.0, color: "#eee" }
+				]
+			};
+			
+			engine.execute(fractals);
 		});
 		
 		</script>

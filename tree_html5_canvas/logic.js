@@ -7,32 +7,51 @@
 *******************************************************************/
 function logic() {
 	
+	// calculates and draws fractals
 	this.execute = function(context) {
+		var fractals = context.fractals;
+		var items = fractals.items;
+		
 		// clear canvas
-		context.services.v.clear();
+		context.view.clear();
+		
+		// paint background
+		if (typeof fractals.gradient !== "undefined") {	context.view.drawGradient(fractals.gradient); }
 	
+		// iterate through array of fractals and calculate+draw them
+		for (var i = 0; i < items.length; i++) {
+			this.calculateFractal(context, items[i]);
+		};
+	};
+	
+	// calculates and draws single fractal
+	this.calculateFractal = function (context, fractal) {
 		// start point
-		var startPoint = context.config.startPoint;
+		var startPoint = fractal.startPoint;
 		// start move vector (normalized vector * length)
-		var direction = context.config.startDirection.multiply(context.config.branchLength);
+		var direction = fractal.startDirection.multiply(fractal.branchLength);
 		
 		// calculate rotation matrixs for left and right child
 		var mr = new matrix();
-		mr.rotate(context.config.angle);
+		mr.rotate(fractal.angle);
 		var ml = new matrix();
-		ml.rotate(-1.0 * context.config.angle);
-		context.config.matrix = { left: ml, right: mr };
+		ml.rotate(-1.0 * fractal.angle);
+		fractal.matrix = { left: ml, right: mr };
+		
+		// set color of the fractal
+		context.view.setStrokeStyle(fractal.color);
 		
 		// start recursion
-		this.iterate(context, startPoint, direction, 1);
+		this.iterate(context, startPoint, direction, 1, fractal);
 	};
 	
 	// tree traversal - depth search first using recursion
-	this.iterate = function (context, startPoint, direction, depth) {
-		if (depth > context.config.maxDepth) { return; } // stop recursion
+	this.iterate = function (context, startPoint, direction, depth, fractal) {
+		if (depth > fractal.maxDepth) { return; } // stop recursion
 		
-		var matrix = context.config.matrix; // rotation matrix
-		var view = context.services.v;
+		var matrix = fractal.matrix; // rotation matrix
+		var branchShortage = fractal.branchShortage;
+		var view = context.view;
 		
 		// calculate end point and draw line
 		var endPoint = startPoint.add(direction);
@@ -42,12 +61,12 @@ function logic() {
 		var newDepth = depth + 1;
 		
 		// right
-		var rightDirection = direction.rotate(matrix.right).multiply(context.config.branchShortage);
-		this.iterate(context, endPoint, rightDirection, newDepth);
+		var rightDirection = direction.rotate(matrix.right).multiply(branchShortage);
+		this.iterate(context, endPoint, rightDirection, newDepth, fractal);
 		
 		// left
-		var leftDirection = direction.rotate(matrix.left).multiply(context.config.branchShortage);
-		this.iterate(context, endPoint, leftDirection, newDepth);
+		var leftDirection = direction.rotate(matrix.left).multiply(branchShortage);
+		this.iterate(context, endPoint, leftDirection, newDepth, fractal);
 	};
 };
 
