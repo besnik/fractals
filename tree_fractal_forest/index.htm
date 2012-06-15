@@ -2,7 +2,7 @@
      
 <html>
 	<head>
-		<title>Fractal binary trees</title>
+		<title>Fractal Tree Forest</title>
 		<meta charset="utf-8">
 
 		<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
@@ -11,44 +11,14 @@
 		<script type="text/javascript" src="view.js"></script>
 		<script type="text/javascript" src="logic.js"></script>
 		<script type="text/javascript" src="controller.js"></script>
+		<script type="text/javascript" src="configGenerator.js"></script>
 
 		<script type="text/javascript">
 		
 		$(document).ready(function() {
-			engine = new controller("area");
-			
+				
 			// input configuration of fractals
 			var fractals = {};
-			
-			fractals.items = [
-			{
-				maxDepth: 10,
-				branchLength: 60,
-				branchShortage: 0.7,
-				angle: 30,
-				color: "#0B0",
-				startPoint: new vector(120, 450),
-				startDirection: new vector(0,-1) // length = 1
-			},
-			{
-				maxDepth: 10,
-				branchLength: 120,
-				branchShortage: 0.7,
-				angle: 15,
-				color: "#0D0",
-				startPoint: new vector(280, 450),
-				startDirection: new vector(0,-1) // length = 1
-			},
-			{
-				maxDepth: 10,
-				branchLength: 40,
-				branchShortage: 0.7,
-				angle: 55,
-				color: "#080",
-				startPoint: new vector(400, 450),
-				startDirection: new vector(0,-1) // length = 1
-			}
-			];
 			
 			fractals.gradient = {
 				stops: [
@@ -57,6 +27,22 @@
 				]
 			};
 			
+			// generate fractals configuration items
+			var config = {
+				items: 25, // number of trees generated
+				maxDepth: { min: 4, max: 10 },
+				branchLength: { min: 20, max: 100 },
+				branchShortage: { min: 3, max: 8 },
+				angle: { min: 5, max: 40 },
+				color: { rmin: 0, rmax: 0, gmin: 30, gmax: 255, bmin: 0, bmax: 0 },
+				startPoint: { xmin: 50, xmax: 450, ymin: 430, ymax: 470 }
+			};
+			
+			var g = new generator();
+			fractals.items = g.generate(config);
+			
+			// init, calculate and render
+			engine = new controller("area");
 			engine.execute(fractals);
 		});
 		
