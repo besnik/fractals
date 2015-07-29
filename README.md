@@ -33,7 +33,7 @@ Program uses basic arithmetic operations, vector and matrix multiplication and c
 
 Program uses depth-first-search of the graph (tree).
 
-![Fractal Tree Forest](fractals/wiki/images/tree-forest.png?raw=true)
+![Fractal Tree Forest](https://raw.githubusercontent.com/wiki/besnik/fractals/images/tree-forest.png)
 
 Implementation
 ==============
